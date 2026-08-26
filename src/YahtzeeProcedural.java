@@ -51,8 +51,63 @@ public class YahtzeeProcedural {
         }
         return occurrences;
     }
-
-
+/*
+    static String combinaison(int[] occurrences){
+        boolean unePaire = false;
+        boolean troisIdentiques = false;
+        int compteur = 0;
+        String resultatNull = "";
+        for (int index = 0; index < occurrences.length; index++){
+            if (occurrences[index] == 5){
+                return "Yahtzee";
+            } else if (occurrences[index] == 4){
+                return "Carré";
+            } else if (occurrences[index] == 3) {
+                troisIdentiques = true;
+            } else if (occurrences[index] == 2 && !unePaire) {
+                unePaire = true;
+            } else if (troisIdentiques && unePaire) {
+                return "Full House";
+            } else if (unePaire && occurrences[index] == 2) {
+                return "Deux paires";
+            } else if (unePaire && index == occurrences.length - 1) {
+                return "Une paire";
+            } else if (troisIdentiques) {
+                return "Brelan";
+            } else if (compteur == 5){
+                return "Grande suite";
+            } else if (compteur == 4){
+                return "Petite suite";
+            } else if (occurrences[index] == 1){
+                compteur ++;
+            } else {
+                compteur = 0;
+            }
+        }
+        return resultatNull;
+    }
+*/
+    static String combinaison(int[] occurrences){
+        int paires = 0;
+        boolean troisIdentiques = false;
+        boolean carre = false;
+        boolean Yahtzee = false;
+        int compteurSuite = 0;
+        int compteurMax = 0;
+        String resultatNull = "";
+        for (int index = 0; index < occurrences.length; index++){
+            if (occurrences[index] == 2) {
+                paires ++;
+            } else if (occurrences[index] == 3) {
+                troisIdentiques = true;
+            } else if (occurrences[index] == 4){
+                carre = true;
+            } else if (occurrences[index] == 5) {
+                Yahtzee = true;
+            }
+        }
+        return resultatNull;
+    }
 
     public static void main(String[] args) {
         final int MAX_NOMBRE = 6;
@@ -77,6 +132,8 @@ public class YahtzeeProcedural {
         }
 
         affichageOccurrences(nombreOccurrences(des, MAX_NOMBRE));
+
+        System.out.println(combinaison(nombreOccurrences(des, MAX_NOMBRE)));
 
     }
 }
