@@ -4,49 +4,48 @@ import java.util.List;
 
 public class YahtzeeProcedural {
 
-    static short lancement(short maxNombre) {
-        return (short)(Math.random() * maxNombre + 1);
+    static int lancement(int maxNombre) {
+        return (int)(Math.random() * maxNombre + 1);
     }
 
-    static void affichageDes(short[] des) {
+    static void affichageDes(int[] des) {
         for (int index = 0; index < des.length; index++) {
             System.out.println("Des numero " + (index + 1) + ": " + des[index]);
         }
     }
 
-    static short[] demandeRelancer(short maxDes) {
+    static int[] demandeRelancer(int maxDes) {
         System.out.println("Indiquez les dés que vous souhaitez relancer (ou « rien » pour arrêter)");
         Scanner scanner = new Scanner(System.in);
         String choixUtilisateur = scanner.nextLine();
-        short[] tableauChoixUtilisateurShort = new short[maxDes];
+        int[] tableauChoixUtilisateurInt = new int[maxDes];
         if (!choixUtilisateur.isEmpty()) {
-            String[] tableauChoixUtilisateurString;
-            tableauChoixUtilisateurString = choixUtilisateur.split(" ");
-            for(short index = 0; index < tableauChoixUtilisateurString.length; index++){
-                tableauChoixUtilisateurShort[index] = Short.parseShort(tableauChoixUtilisateurString[index]);
+            String[] tableauChoixUtilisateurString = choixUtilisateur.split(" ");
+            for(int index = 0; index < tableauChoixUtilisateurString.length; index++){
+                tableauChoixUtilisateurInt[index] = Integer.parseInt(tableauChoixUtilisateurString[index]);
             }
         } else {
-            tableauChoixUtilisateurShort = new short[0];
+            tableauChoixUtilisateurInt = new int[0];
         }
-        return tableauChoixUtilisateurShort;
+        return tableauChoixUtilisateurInt;
     }
 
-    static void relancemet(short[] des, short[] choixUtilisateur){
-        for(short indexDes = 0; indexDes < des.length; indexDes++){
-            for (Short indexChoix : choixUtilisateur) {
+    static void relancemet(int[] des, int[] choixUtilisateur){
+        for(int indexDes = 0; indexDes < des.length; indexDes++){
+            for (int indexChoix : choixUtilisateur) {
                 if (indexDes + 1 == indexChoix) {
-                    des[indexChoix - 1] = lancement((short)des.length);
+                    des[indexChoix - 1] = lancement((int)des.length);
                 }
             }
         }
     }
 
     public static void main(String[] args) {
-        final short MAX_NOMBRE = 6;
-        final short MAX_DES = 5;
-        final short LIMITE_LANCEMENT = 2;
+        final int MAX_NOMBRE = 6;
+        final int MAX_DES = 5;
+        final int LIMITE_LANCEMENT = 2;
 
-        short[] des = new short[MAX_DES];
+        int[] des = new int[MAX_DES];
 
         for (int index = 0; index < des.length; index++) {
             des[index] = lancement(MAX_NOMBRE);
@@ -54,8 +53,8 @@ public class YahtzeeProcedural {
         affichageDes(des);
 
         boolean choixVide= false;
-        for (short lancements = 0; lancements < LIMITE_LANCEMENT && !choixVide; lancements++){
-            short[] choixUtilisateur = demandeRelancer(MAX_DES);
+        for (int lancements = 0; lancements < LIMITE_LANCEMENT && !choixVide; lancements++){
+            int[] choixUtilisateur = demandeRelancer(MAX_DES);
             if (choixUtilisateur.length != 0){
                 relancemet(des, choixUtilisateur);
             } else {
