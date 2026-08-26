@@ -18,23 +18,23 @@ public class YahtzeeProcedural {
         System.out.println("Indiquez les dés que vous souhaitez relancer (ou « rien » pour arrêter)");
         Scanner scanner = new Scanner(System.in);
         String choixUtilisateur = scanner.nextLine();
-        int[] tableauChoixUtilisateurInt = new int[maxDes];
+        String[] ChoixUtilisateur = choixUtilisateur.split(" ");
+        int[] indiceDes = new int[ChoixUtilisateur.length];
         if (!choixUtilisateur.isEmpty()) {
-            String[] tableauChoixUtilisateurString = choixUtilisateur.split(" ");
-            for(int index = 0; index < tableauChoixUtilisateurString.length; index++){
-                tableauChoixUtilisateurInt[index] = Integer.parseInt(tableauChoixUtilisateurString[index]);
+            for(int index = 0; index < ChoixUtilisateur.length; index++){
+                indiceDes[index] = Integer.parseInt(ChoixUtilisateur[index]) - 1;
             }
         } else {
-            tableauChoixUtilisateurInt = new int[0];
+            return new int[0];
         }
-        return tableauChoixUtilisateurInt;
+        return indiceDes;
     }
 
     static void relancemet(int[] des, int[] choixUtilisateur){
         for(int indexDes = 0; indexDes < des.length; indexDes++){
             for (int indexChoix : choixUtilisateur) {
-                if (indexDes + 1 == indexChoix) {
-                    des[indexChoix - 1] = lancement((int)des.length);
+                if (indexDes == indexChoix) {
+                    des[indexChoix] = lancement(des.length);
                 }
             }
         }
@@ -52,13 +52,12 @@ public class YahtzeeProcedural {
         }
         affichageDes(des);
 
-        boolean choixVide= false;
-        for (int lancements = 0; lancements < LIMITE_LANCEMENT && !choixVide; lancements++){
+        for (int lancements = 0; lancements < LIMITE_LANCEMENT; lancements++){
             int[] choixUtilisateur = demandeRelancer(MAX_DES);
             if (choixUtilisateur.length != 0){
                 relancemet(des, choixUtilisateur);
             } else {
-                choixVide= true;
+                break;
             }
             affichageDes(des);
         }
