@@ -14,7 +14,7 @@ public class YahtzeeProcedural {
         }
     }
 
-    static int[] demandeRelancer(int maxDes) {
+    static int[] demandeRelancer() {
         System.out.println("Indiquez les dés que vous souhaitez relancer (ou « rien » pour arrêter)");
         Scanner scanner = new Scanner(System.in);
         String choixUtilisateur = scanner.nextLine();
@@ -53,7 +53,7 @@ public class YahtzeeProcedural {
         affichageDes(des);
 
         for (int lancements = 0; lancements < LIMITE_LANCEMENT; lancements++){
-            int[] choixUtilisateur = demandeRelancer(MAX_DES);
+            int[] choixUtilisateur = demandeRelancer();
             if (choixUtilisateur.length != 0){
                 relancemet(des, choixUtilisateur);
             } else {
