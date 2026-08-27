@@ -1,3 +1,5 @@
+//import jdk.swing.interop.SwingInterOpUtils;
+
 import java.util.Objects;
 import java.util.Scanner;
 
@@ -6,12 +8,12 @@ public class YahtzeeProcedural {
     static final int MAX_NOMBRE = 6;
     static final int MAX_DES = 5;
     static final int LIMITE_LANCEMENT = 2;
-    final int SCORE_UNE_PAIRE = 5;
-    final int SCORE_DEUX_PAIRE = 10;
-    final int SCORE_FULL_HOUSE = 25;
-    final int SCORE_PETITE_SUITE = 30;
-    final int SCORE_GRANDE_SUITE = 40;
-    final int SCORE_YAHTZEE = 50;
+    static final int SCORE_UNE_PAIRE = 5;
+    static final int SCORE_DEUX_PAIRE = 10;
+    static final int SCORE_FULL_HOUSE = 25;
+    static final int SCORE_PETITE_SUITE = 30;
+    static final int SCORE_GRANDE_SUITE = 40;
+    static final int SCORE_YAHTZEE = 50;
 
     static int lancement(int maxNombre) {
         return (int)(Math.random() * maxNombre + 1);
@@ -98,87 +100,100 @@ public class YahtzeeProcedural {
         return resultatNull;
     }
 */
-    static String combinaison(int[] occurrences){
-        int paires = 0;
-        boolean troisIdentiques = false;
-        boolean carre = false;
-        boolean Yahtzee = false;
+    static int paires(int[] occurrences){
+        for (int occurrence : occurrences) {
+            if (occurrence == 2) {
+                return 1;
+            }
+        }
+        return 0;
+    }
+
+    static boolean estBrelan(int[] occurrences) {
+        for (int occurrence : occurrences) {
+            if (occurrence == 3) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    static boolean estCarre(int[] occurrences) {
+        for (int occurrence : occurrences) {
+            if (occurrence == 4) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    static boolean estFullHouse(int[] occurrences) {
+        return estBrelan(occurrences) && estCarre(occurrences);
+    }
+
+    static boolean estYahtzee(int[] occurrences) {
+        for (int occurrence : occurrences) {
+            if (occurrence == 5) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    static int estPetiteGrandeSuite(int[] occurrences) {
         int compteurSuite = 0;
-        int compteurMax = 0;
-        String resultat = "";
-        for (int index = 0; index < occurrences.length; index++){
-            if (occurrences[index] == 2) {
-                paires ++;
-            } else if (occurrences[index] == 3) {
-                troisIdentiques = true;
-            } else if (occurrences[index] == 4){
-                carre = true;
-            } else if (occurrences[index] == 5) {
-                Yahtzee = true;
-            } else if (occurrences[index] == 1) {
+        int compteurSuiteMax = 0;
+        for (int occurrence : occurrences) {
+            if (occurrence == 1) {
                 compteurSuite ++;
-                if (compteurMax < compteurSuite){
-                    compteurMax = compteurSuite;
+                if(compteurSuiteMax < compteurSuite) {
+                    compteurSuiteMax = compteurSuite;
                 }
             } else {
                 compteurSuite = 0;
             }
         }
-
-        if (troisIdentiques && paires == 1) {
-            resultat = "Full House";
-        } else if (carre) {
-            resultat = "Carré";
-        } else if (troisIdentiques) {
-            resultat = "Brelan";
-        } else if (paires == 1) {
-            resultat = "Une paire";
-        } else if (paires == 2) {
-            resultat = "Deux paires";
-        } else if (compteurMax == 4) {
-            resultat = "Petite suite";
-        } else if (compteurMax == 5) {
-            resultat = "Grande suite";
-        } else if (Yahtzee){
-            resultat = "Yahtzee";
+        if (compteurSuiteMax == 4) {
+            return 4;
+        } else if (compteurSuiteMax == 5) {
+            return 5;
         }
-        return resultat;
+        return 0;
     }
 
-    int calculScore(String combinaison, int[] occurrences) {
+    static int calculScore(int[] occurrences) {
         int score = 0;
-        if (Objects.equals(combinaison, "Une paire")) {
+        if (paires(occurrences) == 1) {
             score = SCORE_UNE_PAIRE;
-        } else if (Objects.equals(combinaison, "Deux paires")) {
+        } else if (paires(occurrences) == 2) {
             score = SCORE_DEUX_PAIRE;
-        } else if (Objects.equals(combinaison, "Brelan")) {
+        } else if (estBrelan(occurrences)) {
             for (int face = 0; face < occurrences.length; face++) {
                 if (occurrences[face] == 3) {
                     score = (face + 1) * 3;
                     break;
                 }
             }
-        } else if (Objects.equals(combinaison, "Carré")) {
+        } else if (estCarre(occurrences)) {
             for (int face = 0; face < occurrences.length; face++) {
                 if (occurrences[face] == 4) {
-                    score = (face + 1) * 3;
+                    score = (face + 1) * 4;
                     break;
                 }
             }
-        } else if (Objects.equals(combinaison, "Full House")) {
+        } else if (estFullHouse(occurrences)) {
             score = SCORE_FULL_HOUSE;
-        } else if (Objects.equals(combinaison, "Petite suite")) {
+        } else if (estPetiteGrandeSuite(occurrences) == 4) {
             score = SCORE_PETITE_SUITE;
-        } else if (Objects.equals(combinaison, "Grande suite")) {
+        } else if (estPetiteGrandeSuite(occurrences) == 5) {
             score = SCORE_GRANDE_SUITE;
-        } else if (Objects.equals(combinaison, "Yahtzee")) {
+        } else if (estYahtzee(occurrences)) {
             score = SCORE_YAHTZEE;
         }
         return score;
     }
 
     public static void main(String[] args) {
-
         int[] des = new int[MAX_DES];
 
         for (int index = 0; index < des.length; index++) {
@@ -196,9 +211,9 @@ public class YahtzeeProcedural {
             affichageDes(des);
         }
 
-        affichageOccurrences(nombreOccurrences(des, MAX_NOMBRE));
-
-        System.out.println(combinaison(nombreOccurrences(des, MAX_NOMBRE)));
+        int[] occurrences = nombreOccurrences(des, MAX_NOMBRE);
+        affichageOccurrences(occurrences);
+        System.out.println("Score: " + calculScore(occurrences));
 
     }
 }
