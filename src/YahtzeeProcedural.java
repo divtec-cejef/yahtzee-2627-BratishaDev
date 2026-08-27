@@ -1,6 +1,17 @@
+import java.util.Objects;
 import java.util.Scanner;
 
 public class YahtzeeProcedural {
+
+    static final int MAX_NOMBRE = 6;
+    static final int MAX_DES = 5;
+    static final int LIMITE_LANCEMENT = 2;
+    final int SCORE_UNE_PAIRE = 5;
+    final int SCORE_DEUX_PAIRE = 10;
+    final int SCORE_FULL_HOUSE = 25;
+    final int SCORE_PETITE_SUITE = 30;
+    final int SCORE_GRANDE_SUITE = 40;
+    final int SCORE_YAHTZEE = 50;
 
     static int lancement(int maxNombre) {
         return (int)(Math.random() * maxNombre + 1);
@@ -94,7 +105,7 @@ public class YahtzeeProcedural {
         boolean Yahtzee = false;
         int compteurSuite = 0;
         int compteurMax = 0;
-        String resultatNull = "";
+        String resultat = "";
         for (int index = 0; index < occurrences.length; index++){
             if (occurrences[index] == 2) {
                 paires ++;
@@ -104,15 +115,69 @@ public class YahtzeeProcedural {
                 carre = true;
             } else if (occurrences[index] == 5) {
                 Yahtzee = true;
+            } else if (occurrences[index] == 1) {
+                compteurSuite ++;
+                if (compteurMax < compteurSuite){
+                    compteurMax = compteurSuite;
+                }
+            } else {
+                compteurSuite = 0;
             }
         }
-        return resultatNull;
+
+        if (troisIdentiques && paires == 1) {
+            resultat = "Full House";
+        } else if (carre) {
+            resultat = "Carré";
+        } else if (troisIdentiques) {
+            resultat = "Brelan";
+        } else if (paires == 1) {
+            resultat = "Une paire";
+        } else if (paires == 2) {
+            resultat = "Deux paires";
+        } else if (compteurMax == 4) {
+            resultat = "Petite suite";
+        } else if (compteurMax == 5) {
+            resultat = "Grande suite";
+        } else if (Yahtzee){
+            resultat = "Yahtzee";
+        }
+        return resultat;
+    }
+
+    int calculScore(String combinaison, int[] occurrences) {
+        int score = 0;
+        if (Objects.equals(combinaison, "Une paire")) {
+            score = SCORE_UNE_PAIRE;
+        } else if (Objects.equals(combinaison, "Deux paires")) {
+            score = SCORE_DEUX_PAIRE;
+        } else if (Objects.equals(combinaison, "Brelan")) {
+            for (int face = 0; face < occurrences.length; face++) {
+                if (occurrences[face] == 3) {
+                    score = (face + 1) * 3;
+                    break;
+                }
+            }
+        } else if (Objects.equals(combinaison, "Carré")) {
+            for (int face = 0; face < occurrences.length; face++) {
+                if (occurrences[face] == 4) {
+                    score = (face + 1) * 3;
+                    break;
+                }
+            }
+        } else if (Objects.equals(combinaison, "Full House")) {
+            score = SCORE_FULL_HOUSE;
+        } else if (Objects.equals(combinaison, "Petite suite")) {
+            score = SCORE_PETITE_SUITE;
+        } else if (Objects.equals(combinaison, "Grande suite")) {
+            score = SCORE_GRANDE_SUITE;
+        } else if (Objects.equals(combinaison, "Yahtzee")) {
+            score = SCORE_YAHTZEE;
+        }
+        return score;
     }
 
     public static void main(String[] args) {
-        final int MAX_NOMBRE = 6;
-        final int MAX_DES = 5;
-        final int LIMITE_LANCEMENT = 2;
 
         int[] des = new int[MAX_DES];
 
