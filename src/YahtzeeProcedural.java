@@ -31,6 +31,59 @@ public class YahtzeeProcedural {
         }
     }
 
+    static void affichageScore(int[] occurrances){
+        String alignementDroite = "%2s\n";
+        String alignementGauche = "%-15s";
+        System.out.printf(alignementGauche,"Une paire: ");
+        if(unePaire(occurrances)){
+            System.out.printf(alignementDroite,calculScore(occurrances));
+        } else {
+            System.out.printf(alignementDroite,"0");
+        }
+        System.out.printf(alignementGauche,"Deux paires: ");
+        if(deuxPaires(occurrances)){
+            System.out.printf(alignementDroite,calculScore(occurrances));
+        } else {
+            System.out.printf(alignementDroite,"0");
+        }
+        System.out.printf(alignementGauche,"Brelan: ");
+        if(estBrelan(occurrances)){
+            System.out.printf(alignementDroite,calculScore(occurrances));
+        } else {
+            System.out.printf(alignementDroite,"0");
+        }
+        System.out.printf(alignementGauche,"Carré: ");
+        if(estCarre(occurrances)){
+            System.out.printf(alignementDroite,calculScore(occurrances));
+        } else {
+            System.out.printf(alignementDroite,"0");
+        }
+        System.out.printf(alignementGauche,"Full House: ");
+        if(estFullHouse(occurrances)){
+            System.out.printf(alignementDroite,calculScore(occurrances));
+        } else {
+            System.out.printf(alignementDroite,"0");
+        }
+        System.out.printf(alignementGauche,"Petite Suite: ");
+        if(estPetiteSuite(occurrances)){
+            System.out.printf(alignementDroite,calculScore(occurrances));
+        } else {
+            System.out.printf(alignementDroite,"0");
+        }
+        System.out.printf(alignementGauche,"Grande Suite: ");
+        if(estGrandeSuite(occurrances)){
+            System.out.printf(alignementDroite,calculScore(occurrances));
+        } else {
+            System.out.printf(alignementDroite,"0");
+        }
+        System.out.printf(alignementGauche,"Yahtzee: ");
+        if(estYahtzee(occurrances)){
+            System.out.printf(alignementDroite,calculScore(occurrances));
+        } else {
+            System.out.printf(alignementDroite,"0");
+        }
+    }
+
     static int[] demandeRelancer() {
         System.out.println("Indiquez les dés que vous souhaitez relancer (ou « rien » pour arrêter)");
         Scanner scanner = new Scanner(System.in);
@@ -100,14 +153,23 @@ public class YahtzeeProcedural {
             return resultatNull;
         }
     */
-    static int paires(int[] occurrences){
+    static boolean unePaire(int[] occurrences){
+        for (int occurrence : occurrences) {
+            if (occurrence == 2) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    static boolean deuxPaires(int[] occurrences){
         int paires = 0;
         for (int occurrence : occurrences) {
             if (occurrence == 2) {
                 paires++;
             }
         }
-        return paires;
+        return paires == 2;
     }
 
     static boolean estBrelan(int[] occurrences) {
@@ -129,7 +191,7 @@ public class YahtzeeProcedural {
     }
 
     static boolean estFullHouse(int[] occurrences) {
-        return estBrelan(occurrences) && (paires(occurrences) == 1);
+        return estBrelan(occurrences) && unePaire(occurrences);
     }
 
     static boolean estYahtzee(int[] occurrences) {
@@ -141,7 +203,7 @@ public class YahtzeeProcedural {
         return false;
     }
 
-    static int estPetiteGrandeSuite(int[] occurrences) {
+    static boolean estPetiteSuite(int[] occurrences) {
         int compteurSuite = 0;
         int compteurSuiteMax = 0;
         for (int occurrence : occurrences) {
@@ -154,12 +216,23 @@ public class YahtzeeProcedural {
                 compteurSuite = 0;
             }
         }
-        if (compteurSuiteMax == 4) {
-            return 4;
-        } else if (compteurSuiteMax == 5) {
-            return 5;
+        return compteurSuiteMax == 4;
+    }
+
+    static boolean estGrandeSuite(int[] occurrences) {
+        int compteurSuite = 0;
+        int compteurSuiteMax = 0;
+        for (int occurrence : occurrences) {
+            if (occurrence == 1) {
+                compteurSuite ++;
+                if(compteurSuiteMax < compteurSuite) {
+                    compteurSuiteMax = compteurSuite;
+                }
+            } else {
+                compteurSuite = 0;
+            }
         }
-        return 0;
+        return compteurSuiteMax == 5;
     }
 
     static int calculScore(int[] occurrences) {
@@ -180,13 +253,13 @@ public class YahtzeeProcedural {
                     break;
                 }
             }
-        } else if (paires(occurrences) == 1) {
-            score = SCORE_UNE_PAIRE;
-        } else if (paires(occurrences) == 2) {
+        } else if (deuxPaires(occurrences)) {
             score = SCORE_DEUX_PAIRE;
-        } else if (estPetiteGrandeSuite(occurrences) == 4) {
+        } else if (unePaire(occurrences)) {
+            score = SCORE_UNE_PAIRE;
+        } else if (estPetiteSuite(occurrences)) {
             score = SCORE_PETITE_SUITE;
-        } else if (estPetiteGrandeSuite(occurrences) == 5) {
+        } else if (estGrandeSuite(occurrences)) {
             score = SCORE_GRANDE_SUITE;
         } else if (estYahtzee(occurrences)) {
             score = SCORE_YAHTZEE;
@@ -214,7 +287,8 @@ public class YahtzeeProcedural {
 
         int[] occurrences = nombreOccurrences(des, MAX_NOMBRE);
         affichageOccurrences(occurrences);
-        System.out.println("Score: " + calculScore(occurrences));
+        //System.out.println("Score: " + calculScore(occurrences));
+        affichageScore(occurrences);
 
     }
 }
