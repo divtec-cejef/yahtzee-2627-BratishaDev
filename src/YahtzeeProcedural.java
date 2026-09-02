@@ -101,12 +101,13 @@ public class YahtzeeProcedural {
     }
 */
     static int paires(int[] occurrences){
+        int paires = 0;
         for (int occurrence : occurrences) {
             if (occurrence == 2) {
-                return 1;
+                paires++;
             }
         }
-        return 0;
+        return paires;
     }
 
     static boolean estBrelan(int[] occurrences) {
@@ -128,7 +129,7 @@ public class YahtzeeProcedural {
     }
 
     static boolean estFullHouse(int[] occurrences) {
-        return estBrelan(occurrences) && estCarre(occurrences);
+        return estBrelan(occurrences) && (paires(occurrences) == 1);
     }
 
     static boolean estYahtzee(int[] occurrences) {
@@ -163,17 +164,8 @@ public class YahtzeeProcedural {
 
     static int calculScore(int[] occurrences) {
         int score = 0;
-        if (paires(occurrences) == 1) {
-            score = SCORE_UNE_PAIRE;
-        } else if (paires(occurrences) == 2) {
-            score = SCORE_DEUX_PAIRE;
-        } else if (estBrelan(occurrences)) {
-            for (int face = 0; face < occurrences.length; face++) {
-                if (occurrences[face] == 3) {
-                    score = (face + 1) * 3;
-                    break;
-                }
-            }
+        if (estFullHouse(occurrences)) {
+            score = SCORE_FULL_HOUSE;
         } else if (estCarre(occurrences)) {
             for (int face = 0; face < occurrences.length; face++) {
                 if (occurrences[face] == 4) {
@@ -181,8 +173,17 @@ public class YahtzeeProcedural {
                     break;
                 }
             }
-        } else if (estFullHouse(occurrences)) {
-            score = SCORE_FULL_HOUSE;
+        } else if (estBrelan(occurrences)) {
+            for (int face = 0; face < occurrences.length; face++) {
+                if (occurrences[face] == 3) {
+                    score = (face + 1) * 3;
+                    break;
+                }
+            }
+        } else if (paires(occurrences) == 1) {
+                score = SCORE_UNE_PAIRE;
+            } else if (paires(occurrences) == 2) {
+                score = SCORE_DEUX_PAIRE;
         } else if (estPetiteGrandeSuite(occurrences) == 4) {
             score = SCORE_PETITE_SUITE;
         } else if (estPetiteGrandeSuite(occurrences) == 5) {
