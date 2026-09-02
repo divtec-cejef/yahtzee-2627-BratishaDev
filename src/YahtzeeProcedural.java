@@ -64,42 +64,42 @@ public class YahtzeeProcedural {
         }
         return occurrences;
     }
-/*
-    static String combinaison(int[] occurrences){
-        boolean unePaire = false;
-        boolean troisIdentiques = false;
-        int compteur = 0;
-        String resultatNull = "";
-        for (int index = 0; index < occurrences.length; index++){
-            if (occurrences[index] == 5){
-                return "Yahtzee";
-            } else if (occurrences[index] == 4){
-                return "Carré";
-            } else if (occurrences[index] == 3) {
-                troisIdentiques = true;
-            } else if (occurrences[index] == 2 && !unePaire) {
-                unePaire = true;
-            } else if (troisIdentiques && unePaire) {
-                return "Full House";
-            } else if (unePaire && occurrences[index] == 2) {
-                return "Deux paires";
-            } else if (unePaire && index == occurrences.length - 1) {
-                return "Une paire";
-            } else if (troisIdentiques) {
-                return "Brelan";
-            } else if (compteur == 5){
-                return "Grande suite";
-            } else if (compteur == 4){
-                return "Petite suite";
-            } else if (occurrences[index] == 1){
-                compteur ++;
-            } else {
-                compteur = 0;
+    /*
+        static String combinaison(int[] occurrences){
+            boolean unePaire = false;
+            boolean troisIdentiques = false;
+            int compteur = 0;
+            String resultatNull = "";
+            for (int index = 0; index < occurrences.length; index++){
+                if (occurrences[index] == 5){
+                    return "Yahtzee";
+                } else if (occurrences[index] == 4){
+                    return "Carré";
+                } else if (occurrences[index] == 3) {
+                    troisIdentiques = true;
+                } else if (occurrences[index] == 2 && !unePaire) {
+                    unePaire = true;
+                } else if (troisIdentiques && unePaire) {
+                    return "Full House";
+                } else if (unePaire && occurrences[index] == 2) {
+                    return "Deux paires";
+                } else if (unePaire && index == occurrences.length - 1) {
+                    return "Une paire";
+                } else if (troisIdentiques) {
+                    return "Brelan";
+                } else if (compteur == 5){
+                    return "Grande suite";
+                } else if (compteur == 4){
+                    return "Petite suite";
+                } else if (occurrences[index] == 1){
+                    compteur ++;
+                } else {
+                    compteur = 0;
+                }
             }
+            return resultatNull;
         }
-        return resultatNull;
-    }
-*/
+    */
     static int paires(int[] occurrences){
         int paires = 0;
         for (int occurrence : occurrences) {
@@ -181,9 +181,9 @@ public class YahtzeeProcedural {
                 }
             }
         } else if (paires(occurrences) == 1) {
-                score = SCORE_UNE_PAIRE;
-            } else if (paires(occurrences) == 2) {
-                score = SCORE_DEUX_PAIRE;
+            score = SCORE_UNE_PAIRE;
+        } else if (paires(occurrences) == 2) {
+            score = SCORE_DEUX_PAIRE;
         } else if (estPetiteGrandeSuite(occurrences) == 4) {
             score = SCORE_PETITE_SUITE;
         } else if (estPetiteGrandeSuite(occurrences) == 5) {
