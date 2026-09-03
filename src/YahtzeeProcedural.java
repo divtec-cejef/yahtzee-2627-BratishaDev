@@ -96,9 +96,9 @@ public class YahtzeeProcedural {
     }
 
     static boolean estBrelan(int[] occurrences) {
-        for (int occurrence : occurrences) {
-            if (occurrence >= 3) {
-                faceBrelant = occurrence;
+        for (int face = 0; face < occurrences.length; face++) {
+            if (occurrences[face] >= 3) {
+                faceBrelant = face;
                 return true;
             }
         }
@@ -106,9 +106,9 @@ public class YahtzeeProcedural {
     }
 
     static boolean estCarre(int[] occurrences) {
-        for (int occurrence : occurrences) {
-            if (occurrence >= 4) {
-                faceCarre = occurrence;
+        for (int face = 0; face < occurrences.length; face++) {
+            if (occurrences[face] >= 4) {
+                faceCarre = face;
                 return true;
             }
         }
