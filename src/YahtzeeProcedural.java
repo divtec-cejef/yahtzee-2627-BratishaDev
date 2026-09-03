@@ -7,6 +7,7 @@ public class YahtzeeProcedural {
     static final int MAX_NOMBRE = 6;
     static final int MAX_DES = 5;
     static final int LIMITE_LANCEMENT = 2;
+    static final int LIMITE_MANCHES = 3;
     static final int SCORE_UNE_PAIRE = 5;
     static final int SCORE_DEUX_PAIRE = 10;
     static final int SCORE_FULL_HOUSE = 25;
@@ -18,6 +19,10 @@ public class YahtzeeProcedural {
     static int faceCarre = 0;
     static int face1Paire = 0;
     static int face2Paire = 0;
+
+    static boolean[] combinaisonsPrises = new boolean[8];
+    static int scoreJoueur = 0;
+
 
     static int lancement(int maxNombre) {
         return (int)(Math.random() * maxNombre + 1);
@@ -37,10 +42,12 @@ public class YahtzeeProcedural {
 
     static void affichageScore(int[] scores, String[] nomCombinaison){
         String alignementDroite = "%2s\n";
-        String alignementGauche = "%-15s";
-        for (int index = 0; index < scores.length; index++) {
-            System.out.printf(alignementGauche, nomCombinaison[index]);
-            System.out.printf(alignementDroite, scores[index]);
+        String alignementGauche = "%-17s";
+        for (int index = 0; index < nomCombinaison.length; index++) {
+            if(!combinaisonsPrises[index]) {
+                System.out.printf(alignementGauche, (index + 1) + ") " + nomCombinaison[index]);
+                System.out.printf(alignementDroite, scores[index]);
+            }
         }
     }
 
@@ -212,28 +219,47 @@ public class YahtzeeProcedural {
         return scores;
     }
 
+    static int choixCombinaison() {
+        Scanner scanner = new Scanner(System.in);
+        int choixCombinaison;
+        boolean valide = false;
+        do {
+            System.out.println("Choisissez le numéro correspondant à l'une des combinaisons disponibles: ");
+            choixCombinaison = Integer.parseInt(scanner.nextLine());
+            if (choixCombinaison > 0 && choixCombinaison < 9){
+                valide = true;
+            }
+        } while (valide);
+        combinaisonsPrises[choixCombinaison - 1] = true;
+        return choixCombinaison - 1;
+    }
+
     public static void main(String[] args) {
-        int[] des = new int[MAX_DES];
+        for (int manche = 0; manche < LIMITE_MANCHES; manche++) {
+            int[] des = new int[MAX_DES];
 
-        for (int index = 0; index < des.length; index++) {
-            des[index] = lancement(MAX_NOMBRE);
-        }
-        affichageDes(des);
-
-        for (int lancements = 0; lancements < LIMITE_LANCEMENT; lancements++){
-            int[] choixUtilisateur = demandeRelancer();
-            if (choixUtilisateur.length != 0){
-                relancemet(des, choixUtilisateur);
-            } else {
-                break;
+            for (int index = 0; index < des.length; index++) {
+                des[index] = lancement(MAX_NOMBRE);
             }
             affichageDes(des);
-        }
 
-        int[] occurrences = nombreOccurrences(des, MAX_NOMBRE);
-        String[] combinaisons = {"Une paire", "Deux paires", "Brelan", "Carré", "Full House", "Petite suite", "Grande suite", "Yahtzee"};
-        affichageOccurrences(occurrences);
-        affichageScore(calculScore(occurrences), combinaisons);
+            for (int lancements = 0; lancements < LIMITE_LANCEMENT; lancements++) {
+                int[] choixUtilisateur = demandeRelancer();
+                if (choixUtilisateur.length != 0) {
+                    relancemet(des, choixUtilisateur);
+                } else {
+                    break;
+                }
+                affichageDes(des);
+            }
+
+            int[] occurrences = nombreOccurrences(des, MAX_NOMBRE);
+            String[] combinaisons = {"Une paire", "Deux paires", "Brelan", "Carré", "Full House", "Petite suite", "Grande suite", "Yahtzee"};
+            affichageOccurrences(occurrences);
+            affichageScore(calculScore(occurrences), combinaisons);
+            scoreJoueur = scoreJoueur + calculScore(occurrences)[choixCombinaison()];
+            System.out.println("Votre score: " + scoreJoueur);
+        }
     }
 }
 
