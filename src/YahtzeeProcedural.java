@@ -16,7 +16,8 @@ public class YahtzeeProcedural {
 
     static int faceBrelant = 0;
     static int faceCarre = 0;
-    static int facePaire = 0;
+    static int face1Paire = 0;
+    static int face2Paire = 0;
 
     static int lancement(int maxNombre) {
         return (int)(Math.random() * maxNombre + 1);
@@ -78,9 +79,8 @@ public class YahtzeeProcedural {
     }
 
     static boolean unePaire(int[] occurrences){
-        for (int face = 0; face < occurrences.length; face++) {
-            if (occurrences[face] >= 2) {
-                facePaire = face;
+        for (int occurrence : occurrences) {
+            if (occurrence >= 2) {
                 return true;
             }
         }
@@ -90,9 +90,14 @@ public class YahtzeeProcedural {
 
     static boolean deuxPaires(int[] occurrences){
         int paires = 0;
-        for (int occurrence : occurrences) {
-            if (occurrence >= 2) {
+        for (int face = 0; face < occurrences.length ;face++) {
+            if (occurrences[face] >= 2) {
                 paires++;
+                if (paires == 1)
+                    face1Paire = face;
+                else if (paires == 2) {
+                    face2Paire = face;
+                }
             }
         }
         return paires == 2;
@@ -119,7 +124,7 @@ public class YahtzeeProcedural {
     }
 
     static boolean estFullHouse(int[] occurrences) {
-        return estBrelan(occurrences) && unePaire(occurrences) && faceCarre != faceBrelant;
+        return estBrelan(occurrences) && unePaire(occurrences) && (face1Paire != faceBrelant || face2Paire > 0);
     }
 
     static boolean estYahtzee(int[] occurrences) {
@@ -135,7 +140,7 @@ public class YahtzeeProcedural {
         int compteurSuite = 0;
         int compteurSuiteMax = 0;
         for (int occurrence : occurrences) {
-            if (occurrence == 1 || occurrence == 2) {
+            if (occurrence >= 1) {
                 compteurSuite ++;
                 if(compteurSuiteMax < compteurSuite) {
                     compteurSuiteMax = compteurSuite;
@@ -165,29 +170,30 @@ public class YahtzeeProcedural {
 
     static int[] calculScore(int[] occurrences) {
         int[] scores = new int[8];
-        if (estFullHouse(occurrences)) {
-            scores[4] = SCORE_FULL_HOUSE;
+        if (unePaire(occurrences)) {
+            scores[0] = SCORE_UNE_PAIRE;
         } else {
-            scores[4] = 0;
+            scores[0] = 0;
         }
-        if (estCarre(occurrences)) {
-            scores[3] = (faceCarre + 1) * 4;
+        if (deuxPaires(occurrences)) {
+            scores[1] = SCORE_DEUX_PAIRE;
         } else {
-            scores[3] = 0;
+            scores[1] = 0;
         }
         if (estBrelan(occurrences)) {
             scores[2] = (faceBrelant + 1) * 3;
         } else {
             scores[2] = 0;
         }
-        if (deuxPaires(occurrences)) {
-            scores[1] = SCORE_DEUX_PAIRE;
+        if (estCarre(occurrences)) {
+            scores[3] = (faceCarre + 1) * 4;
         } else {
-            scores[1] = 0;
-        }if (unePaire(occurrences)) {
-            scores[0] = SCORE_UNE_PAIRE;
+            scores[3] = 0;
+        }
+        if (estFullHouse(occurrences)) {
+            scores[4] = SCORE_FULL_HOUSE;
         } else {
-            scores[0] = 0;
+            scores[4] = 0;
         }
         if (estPetiteSuite(occurrences)) {
             scores[5] = SCORE_PETITE_SUITE;
