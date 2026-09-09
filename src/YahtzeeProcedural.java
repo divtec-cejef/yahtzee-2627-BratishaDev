@@ -7,7 +7,7 @@ public class YahtzeeProcedural {
     static final int MAX_NOMBRE = 6;
     static final int MAX_DES = 5;
     static final int LIMITE_LANCEMENT = 2;
-    static final int LIMITE_MANCHES = 3;
+    static final int LIMITE_MANCHES = 5;
     static final int SCORE_UNE_PAIRE = 5;
     static final int SCORE_DEUX_PAIRE = 10;
     static final int SCORE_FULL_HOUSE = 25;
@@ -32,12 +32,14 @@ public class YahtzeeProcedural {
         for (int index = 0; index < des.length; index++) {
             System.out.println("Des numero " + (index + 1) + ": " + des[index]);
         }
+        System.out.println();
     }
 
     static void affichageOccurrences(int[] occurrances) {
         for (int index = 0; index < occurrances.length; index++) {
             System.out.println("Occurrences de la face " + (index + 1) + ": " + occurrances[index]);
         }
+        System.out.println();
     }
 
     static void affichageScore(int[] scores, String[] nomCombinaison){
@@ -49,6 +51,7 @@ public class YahtzeeProcedural {
                 System.out.printf(alignementDroite, scores[index]);
             }
         }
+        System.out.println();
     }
 
     static int[] demandeRelancer() {
@@ -226,10 +229,10 @@ public class YahtzeeProcedural {
         do {
             System.out.println("Choisissez le numéro correspondant à l'une des combinaisons disponibles: ");
             choixCombinaison = Integer.parseInt(scanner.nextLine());
-            if (choixCombinaison > 0 && choixCombinaison < 9){
+            if (choixCombinaison > 0 && choixCombinaison < 9 && !combinaisonsPrises[choixCombinaison - 1]){
                 valide = true;
             }
-        } while (valide);
+        } while (!valide);
         combinaisonsPrises[choixCombinaison - 1] = true;
         return choixCombinaison - 1;
     }
@@ -258,7 +261,12 @@ public class YahtzeeProcedural {
             affichageOccurrences(occurrences);
             affichageScore(calculScore(occurrences), combinaisons);
             scoreJoueur = scoreJoueur + calculScore(occurrences)[choixCombinaison()];
-            System.out.println("Votre score: " + scoreJoueur);
+            if (manche != LIMITE_MANCHES - 1) {
+                System.out.println("Votre score: " + scoreJoueur + "\n");
+            } else {
+                System.out.println("Votre score final: " + scoreJoueur);
+            }
+            face2Paire = 0;
         }
     }
 }
