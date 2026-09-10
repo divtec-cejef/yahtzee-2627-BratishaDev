@@ -1,7 +1,7 @@
 package Objets;
 
 /**
- * Classe qui représente un dé à jouer.
+ * Classe qui représente un dé à 6 faces.
  */
 public class Die {
 
