@@ -41,5 +41,7 @@ public class Die {
         }
     }
 
-
+    public int getSIDE_COUNT() {
+        return SIDE_COUNT;
+    }
 }
