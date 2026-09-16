@@ -11,6 +11,8 @@ public enum Category {
         GRANDE_SUITE ("Grande suite"),
         YAHTZEE ("Yahtzee");
 
+        private final String name;
+
         Category(String name) {
             this.name = name;
         }
@@ -18,6 +20,4 @@ public enum Category {
         public String getName() {
             return name;
         }
-        private final String name;
-
 }
