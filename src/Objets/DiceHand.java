@@ -182,12 +182,12 @@ public class DiceHand {
         return compteurSuiteMax == 5;
     }
 
-    public int getFaceCarre() {
-        return faceCarre;
+    public int getSumCarre() {
+        return faceCarre * 4;
     }
 
-    public int getFaceBrelant() {
-        return faceBrelant;
+    public int getSumBrelant() {
+        return faceBrelant * 3;
     }
 
 }
