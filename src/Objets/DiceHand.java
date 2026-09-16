@@ -7,7 +7,7 @@ public class DiceHand {
 
     private final int NUMBER_OF_DICE = 5;
     private Die[] dice = new Die[NUMBER_OF_DICE];
-    private int faceBrelant = 0;
+    private int faceBrelan = 0;
     private int faceCarre = 0;
     private int face1Paire = 0;
     private int face2Paire = 0;
@@ -94,7 +94,7 @@ public class DiceHand {
     public boolean estBrelan(int[] occurrences) {
         for (int face = 0; face < occurrences.length; face++) {
             if (occurrences[face] >= 3) {
-                faceBrelant = face;
+                faceBrelan = face;
                 return true;
             }
         }
@@ -122,7 +122,7 @@ public class DiceHand {
      * @return true s'il y a un Full House, false sinon
      */
     public boolean estFullHouse(int[] occurrences) {
-        return estBrelan(occurrences) && estUnePaire(occurrences) && (face1Paire != faceBrelant || face2Paire > 0);
+        return estBrelan(occurrences) && estUnePaire(occurrences) && (face1Paire != faceBrelan || face2Paire > 0);
     }
 
     /**
@@ -186,8 +186,8 @@ public class DiceHand {
         return faceCarre * 4;
     }
 
-    public int getSumBrelant() {
-        return faceBrelant * 3;
+    public int getSumBrelan() {
+        return faceBrelan * 3;
     }
 
 }
