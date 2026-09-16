@@ -13,13 +13,19 @@ public class DiceHand {
     private int face2Paire = 0;
 
 
+    public DiceHand() {
+        for (int i = 0; i < NUMBER_OF_DICE; i++) {
+            dice[i] = new Die();
+        }
+    }
+
     public void rollDice(){
         for (Die die : dice) {
             die.roll();
         }
     }
 
-    public void reroll(Die[] dice, int[] UserChoice){
+    public void reroll(int[] UserChoice){
         for (int indexChoice : UserChoice) {
             dice[indexChoice].roll();
         }
@@ -35,10 +41,9 @@ public class DiceHand {
 
     /**
      * Calcule le nombre d'occurrences
-     * @param dice les dés
      * @return nombre d'occurrences de chaque nombre
      */
-    public int[] getNombreOccurrences(Die[] dice){
+    public int[] getNombreOccurrences(){
         int[] occurrences = new int[dice[0].getSIDE_COUNT()];
          for (Die die : dice) {
              occurrences[die.getVisibleSide() - 1]++;
