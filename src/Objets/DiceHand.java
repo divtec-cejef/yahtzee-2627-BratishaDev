@@ -11,6 +11,7 @@ public class DiceHand {
     private int faceCarre = 0;
     private int face1Paire = 0;
     private int face2Paire = 0;
+    private int[] nombreOccurrences = getNombreOccurrences();
 
 
     public DiceHand() {
@@ -53,11 +54,10 @@ public class DiceHand {
 
     /**
      * Vérification de la combinaison d'une paire.
-     * @param occurrences les occurrences de chaque nombre
      * @return true s'il y a une paire, false sinon
      */
-    public boolean estUnePaire(int[] occurrences){
-        for (int occurrence : occurrences) {
+    public boolean estUnePaire(){
+        for (int occurrence : nombreOccurrences) {
             if (occurrence >= 2) {
                 return true;
             }
@@ -68,13 +68,12 @@ public class DiceHand {
 
     /**
      * Vérification de la présence d'une combinaison de DEUX paires.
-     * @param occurrences les occurrences de chaque nombre
      * @return true s'il y a deux pairs, false sinon
      */
-    public boolean estDeuxPaires(int[] occurrences){
+    public boolean estDeuxPaires(){
         int paires = 0;
-        for (int face = 0; face < occurrences.length ;face++) {
-            if (occurrences[face] >= 2) {
+        for (int face = 0; face < nombreOccurrences.length ;face++) {
+            if (nombreOccurrences[face] >= 2) {
                 paires++;
                 if (paires == 1)
                     face1Paire = face;
@@ -88,12 +87,11 @@ public class DiceHand {
 
     /**
      * Vérification de la présence d'une combinaison « Brelan »
-     * @param occurrences les occurrences de chaque nombre
      * @return true s'il y a un Brelan, false sinon
      */
-    public boolean estBrelan(int[] occurrences) {
-        for (int face = 0; face < occurrences.length; face++) {
-            if (occurrences[face] >= 3) {
+    public boolean estBrelan() {
+        for (int face = 0; face < nombreOccurrences.length; face++) {
+            if (nombreOccurrences[face] >= 3) {
                 faceBrelan = face;
                 return true;
             }
@@ -103,12 +101,11 @@ public class DiceHand {
 
     /**
      * Vérification de la présence d'une combinaison « Carré »
-     * @param occurrences les occurrences de chaque nombre
      * @return true s'il y a un Carré, false sinon
      */
-    public boolean estCarre(int[] occurrences) {
-        for (int face = 0; face < occurrences.length; face++) {
-            if (occurrences[face] >= 4) {
+    public boolean estCarre() {
+        for (int face = 0; face < nombreOccurrences.length; face++) {
+            if (nombreOccurrences[face] >= 4) {
                 faceCarre = face;
                 return true;
             }
@@ -118,20 +115,18 @@ public class DiceHand {
 
     /**
      * Vérification de la présence d'une combinaison « Full House »
-     * @param occurrences les occurrences de chaque nombre
      * @return true s'il y a un Full House, false sinon
      */
-    public boolean estFullHouse(int[] occurrences) {
-        return estBrelan(occurrences) && estUnePaire(occurrences) && (face1Paire != faceBrelan || face2Paire > 0);
+    public boolean estFullHouse() {
+        return estBrelan() && estUnePaire() && (face1Paire != faceBrelan || face2Paire > 0);
     }
 
     /**
      * Vérification de la présence d'une combinaison « Yahtzee »
-     * @param occurrences les occurrences de chaque nombre
      * @return true s'il y a un Yahtzee, false sinon
      */
-    public boolean estYahtzee(int[] occurrences) {
-        for (int occurrence : occurrences) {
+    public boolean estYahtzee() {
+        for (int occurrence : nombreOccurrences) {
             if (occurrence == 5) {
                 return true;
             }
@@ -142,13 +137,12 @@ public class DiceHand {
 
     /**
      * Vérification de la présence d'une combinaison « Petite Suite »
-     * @param occurrences les occurrences de chaque nombre
      * @return true s'il y a une Petite Suite, false sinon
      */
-    public boolean estPetiteSuite(int[] occurrences) {
+    public boolean estPetiteSuite() {
         int compteurSuite = 0;
         int compteurSuiteMax = 0;
-        for (int occurrence : occurrences) {
+        for (int occurrence : nombreOccurrences) {
             if (occurrence >= 1) {
                 compteurSuite ++;
                 if(compteurSuiteMax < compteurSuite) {
@@ -163,13 +157,12 @@ public class DiceHand {
 
     /**
      * Vérification de la présence d'une combinaison « Grande Suite »
-     * @param occurrences les occurrences de chaque nombre
      * @return true s'il y a une Grande Suite, false sinon
      */
-    public boolean estGrandeSuite(int[] occurrences) {
+    public boolean estGrandeSuite() {
         int compteurSuite = 0;
         int compteurSuiteMax = 0;
-        for (int occurrence : occurrences) {
+        for (int occurrence : nombreOccurrences) {
             if (occurrence == 1) {
                 compteurSuite ++;
                 if(compteurSuiteMax < compteurSuite) {
