@@ -11,25 +11,28 @@ public class DiceHand {
     private int faceCarre = 0;
     private int face1Paire = 0;
     private int face2Paire = 0;
-    private int[] nombreOccurrences = getNombreOccurrences();
+    private int[] nombreOccurrences;
 
 
     public DiceHand() {
         for (int i = 0; i < NUMBER_OF_DICE; i++) {
             dice[i] = new Die();
         }
+        nombreOccurrences = getNombreOccurrences();
     }
 
     public void rollDice(){
         for (Die die : dice) {
             die.roll();
         }
+        nombreOccurrences = getNombreOccurrences();
     }
 
     public void reroll(int[] UserChoice){
         for (int indexChoice : UserChoice) {
             dice[indexChoice].roll();
         }
+        nombreOccurrences = getNombreOccurrences();
     }
 
     public int[] getValuesDice() {
@@ -92,7 +95,7 @@ public class DiceHand {
     public boolean estBrelan() {
         for (int face = 0; face < nombreOccurrences.length; face++) {
             if (nombreOccurrences[face] >= 3) {
-                faceBrelan = face;
+                faceBrelan = face + 1;
                 return true;
             }
         }
@@ -106,7 +109,7 @@ public class DiceHand {
     public boolean estCarre() {
         for (int face = 0; face < nombreOccurrences.length; face++) {
             if (nombreOccurrences[face] >= 4) {
-                faceCarre = face;
+                faceCarre = face + 1;
                 return true;
             }
         }

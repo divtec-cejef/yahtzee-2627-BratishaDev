@@ -6,6 +6,10 @@ public class ScoreEntry {
     private int score;
     private boolean utilise;
 
+    ScoreEntry(){
+
+    }
+
     public Category getCategory() {
         return category;
     }
