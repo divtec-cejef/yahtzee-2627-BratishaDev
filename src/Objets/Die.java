@@ -11,7 +11,7 @@ public class Die {
     /**
      * Constructeur par défaut.
      */
-    Die() {
+    public Die() {
 
     }
 
