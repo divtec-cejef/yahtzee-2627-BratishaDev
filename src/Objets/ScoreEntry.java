@@ -6,7 +6,7 @@ public class ScoreEntry {
     private final int score;
     private final int[] diceValuesFinal;
 
-    ScoreEntry(Category category, DiceHand diceHand){
+    public ScoreEntry(Category category, DiceHand diceHand){
         this.category = category;
         score = category.Score(diceHand);
         diceValuesFinal = diceHand.getValuesDice();
