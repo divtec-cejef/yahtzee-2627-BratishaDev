@@ -1,5 +1,7 @@
 package Objets;
 
+import java.util.List;
+
 public class ConsoleIO {
 
     /**
@@ -24,6 +26,18 @@ public class ConsoleIO {
         System.out.println();
     }
 
-
+    /**
+     * Affiche les scores des combinaisons
+     * @param category nom des combinaisons
+     */
+    static void affichageScore(DiceHand diceHand, Scorecard scorecard){
+        String alignementDroite = "%2s\n";
+        String alignementGauche = "%-17s";
+        for (int index = 0; index < Category.values().length; index++) {
+            System.out.printf(alignementGauche, (index + 1) + ") " + category.ordinal());
+            System.out.printf(alignementDroite, category.Score(diceHand));
+        }
+        System.out.println();
+    }
 
 }
