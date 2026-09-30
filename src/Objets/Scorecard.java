@@ -24,10 +24,14 @@ public class Scorecard {
     public List<Category> getAvailableCategories() {
         List<Category> available = new ArrayList<>();
         for (Category category : Category.values()){
-            if (!entries.containsKey(category)) {
+            if (isAvailable(category)) {
                 available.add(category);
             }
         }
         return available;
+    }
+
+    public boolean isAvailable(Category category) {
+        return !entries.containsKey(category);
     }
 }

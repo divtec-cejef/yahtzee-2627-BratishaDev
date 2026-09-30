@@ -19,7 +19,7 @@ public class ConsoleIO {
      */
     public void displayDice(int[] diceHand) {
         for (int index = 0; index < diceHand.length; index++) {
-            System.out.println("Des numero " + (index + 1) + ": " + diceHand[index]);
+            System.out.println("Des numero " + (index + 1) + ": " + CYAN + diceHand[index] + RESET);
         }
         System.out.println();
     }
@@ -38,13 +38,19 @@ public class ConsoleIO {
     /**
      * Affiche les scores des combinaisons
      * @param diceHand dés de tour
-     * @param availableCategories categories disponibles
+     * @param scorecard la feuille de score complète
      */
-    public void displayScore(DiceHand diceHand, List<Category> availableCategories){
+    public void displayScore(DiceHand diceHand, Scorecard scorecard){
         String alignementDroite = "%2s\n";
         String alignementGauche = "%-17s";
-        for (Category category : availableCategories) {
-            System.out.printf(alignementGauche, (category.ordinal() + 1) + ") " + category.getName());
+        String color;
+        for (Category category : Category.values()) {
+            if (scorecard.isAvailable(category)){
+                color = GREEN;
+            } else {
+                color = GRAY;
+            }
+            System.out.printf(alignementGauche, color + (category.ordinal() + 1) + ") " + category.getName() + RESET);
             System.out.printf(alignementDroite, category.Score(diceHand));
         }
         System.out.println();
@@ -55,7 +61,7 @@ public class ConsoleIO {
      * @return les indices de dés à relancer
      */
     public int[] requestReroll() {
-        System.out.println("Indiquez les dés que vous souhaitez relancer (ou enter pour arrêter)");
+        System.out.println(YELLOW + "Indiquez les dés que vous souhaitez relancer (ou enter pour arrêter)" + RESET);
         Scanner scanner = new Scanner(System.in);
         String choixUtilisateur = scanner.nextLine();
         String[] ChoixUtilisateur = choixUtilisateur.split(" ");
@@ -75,7 +81,7 @@ public class ConsoleIO {
      * @param rolls le nombre de lancements
      */
     public void displayNumberRolls(int rolls) {
-        System.out.println("Lancement: " + (rolls + 1));
+        System.out.println(BLUE + "Lancement: " + (rolls + 1) + RESET);
     }
 
     /**
@@ -83,7 +89,7 @@ public class ConsoleIO {
      * @param rounds le nombre de manches
      */
     public void displayNumberRounds(int rounds) {
-        System.out.println("Manche numero: " + (rounds + 1));
+        System.out.println(BLUE + "Manche numero: " + (rounds + 1) + RESET);
     }
 
     /**
@@ -91,7 +97,7 @@ public class ConsoleIO {
      * @param playerScore le score d'un joueur
      */
     public void displayPlayerScore(int playerScore) {
-        System.out.println("Votre score: " + playerScore + "\n");
+        System.out.println(PURPLE + "Votre score: " + playerScore + "\n" + RESET);
     }
 
 }
