@@ -1,6 +1,5 @@
 package Objets;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -68,7 +67,7 @@ public class ConsoleIO {
      * @param rolls le nombre de lancements
      */
     public void displayNumberRolls(int rolls) {
-        System.out.println("Lancement: " + rolls + 1);
+        System.out.println("Lancement: " + (rolls + 1));
     }
 
     /**
