@@ -1,5 +1,6 @@
 package Objets;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ConsoleIO {
@@ -28,16 +29,16 @@ public class ConsoleIO {
 
     /**
      * Affiche les scores des combinaisons
-     * @param category nom des combinaisons
+     * @param diceHand dés de tour
+     * @param availableCategories categories disponibles
      */
-    static void affichageScore(DiceHand diceHand, Scorecard scorecard){
+    static void affichageScore(DiceHand diceHand, List<Category> availableCategories){
         String alignementDroite = "%2s\n";
         String alignementGauche = "%-17s";
-        for (int index = 0; index < Category.values().length; index++) {
-            System.out.printf(alignementGauche, (index + 1) + ") " + category.ordinal());
+        for (Category category : availableCategories) {
+            System.out.printf(alignementGauche, (category.ordinal() + 1) + ") " + category.getName());
             System.out.printf(alignementDroite, category.Score(diceHand));
         }
         System.out.println();
     }
-
 }

@@ -21,7 +21,7 @@ public class Scorecard {
         return totalScore;
     }
 
-    public List<Category> getAvailableCategories () {
+    public List<Category> getAvailableCategories() {
         List<Category> available = new ArrayList<>();
         for (Category category : Category.values()){
             if (!entries.containsKey(category)) {
