@@ -63,5 +63,16 @@ public class ConsoleIO {
         return indiceDes;
     }
 
+    public void displayNumberRolls(int rolls) {
+        System.out.println("Lancement: " + rolls + 1);
+    }
+
+    public void displayNumberRounds(int rounds) {
+        System.out.println("Manche numero: " + (rounds + 1));
+    }
+
+    public void displayPlayerScore(int playerScore) {
+        System.out.println("Votre score: " + playerScore + "\n");
+    }
 
 }
