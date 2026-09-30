@@ -63,14 +63,26 @@ public class ConsoleIO {
         return indiceDes;
     }
 
+    /**
+     * Affiche le nombre de lancements
+     * @param rolls le nombre de lancements
+     */
     public void displayNumberRolls(int rolls) {
         System.out.println("Lancement: " + rolls + 1);
     }
 
+    /**
+     * Affiche le nombre de manches
+     * @param rounds le nombre de manches
+     */
     public void displayNumberRounds(int rounds) {
         System.out.println("Manche numero: " + (rounds + 1));
     }
 
+    /**
+     * Affiche le score d'un joueur
+     * @param playerScore le score d'un joueur
+     */
     public void displayPlayerScore(int playerScore) {
         System.out.println("Votre score: " + playerScore + "\n");
     }
