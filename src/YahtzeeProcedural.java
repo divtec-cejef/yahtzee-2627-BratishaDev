@@ -333,7 +333,7 @@ public class YahtzeeProcedural {
             System.out.println("Lancement: " + 1);
             affichageDes(des);
 
-            // Replacement de dés optionnel
+            // Relancement optionnel de dés
             for (int lancements = 0; lancements < LIMITE_LANCEMENT; lancements++) {
                 int[] choixUtilisateur = demandeRelancer();
                 if (choixUtilisateur.length != 0) {
