@@ -186,4 +186,7 @@ public class DiceHand {
         return faceBrelan * 3;
     }
 
+    public void setFace2Paire(int face2Paire) {
+        this.face2Paire = face2Paire;
+    }
 }
