@@ -20,7 +20,7 @@ public class ConsoleIO {
      * Affiche des occurrences
      * @param occurrances occurrences à afficher
      */
-    public void occurrencesDisplay(int[] occurrances) {
+    public void displayOccurrences(int[] occurrances) {
         for (int index = 0; index < occurrances.length; index++) {
             System.out.println("Occurrences de la face " + (index + 1) + ": " + occurrances[index]);
         }
@@ -32,7 +32,7 @@ public class ConsoleIO {
      * @param diceHand dés de tour
      * @param availableCategories categories disponibles
      */
-    static void affichageScore(DiceHand diceHand, List<Category> availableCategories){
+    static void displayScore(DiceHand diceHand, List<Category> availableCategories){
         String alignementDroite = "%2s\n";
         String alignementGauche = "%-17s";
         for (Category category : availableCategories) {
