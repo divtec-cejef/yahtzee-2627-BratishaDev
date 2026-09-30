@@ -2,6 +2,7 @@ package Objets;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class ConsoleIO {
 
@@ -32,7 +33,7 @@ public class ConsoleIO {
      * @param diceHand dés de tour
      * @param availableCategories categories disponibles
      */
-    static void displayScore(DiceHand diceHand, List<Category> availableCategories){
+    public void displayScore(DiceHand diceHand, List<Category> availableCategories){
         String alignementDroite = "%2s\n";
         String alignementGauche = "%-17s";
         for (Category category : availableCategories) {
@@ -41,4 +42,26 @@ public class ConsoleIO {
         }
         System.out.println();
     }
+
+    /**
+     * Demande à l'utilisateur relancer les dés
+     * @return les indices de dés à relancer
+     */
+    public int[] requestReroll() {
+        System.out.println("Indiquez les dés que vous souhaitez relancer (ou enter pour arrêter)");
+        Scanner scanner = new Scanner(System.in);
+        String choixUtilisateur = scanner.nextLine();
+        String[] ChoixUtilisateur = choixUtilisateur.split(" ");
+        int[] indiceDes = new int[ChoixUtilisateur.length];
+        if (!choixUtilisateur.isEmpty()) {
+            for(int index = 0; index < ChoixUtilisateur.length; index++){
+                indiceDes[index] = Integer.parseInt(ChoixUtilisateur[index]) - 1;
+            }
+        } else {
+            return new int[0];
+        }
+        return indiceDes;
+    }
+
+
 }
