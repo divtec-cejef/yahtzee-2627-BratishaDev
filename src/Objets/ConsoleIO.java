@@ -5,6 +5,14 @@ import java.util.Scanner;
 
 public class ConsoleIO {
 
+    private final String RESET = "\u001B[0m";
+    private final String RED = "\u001B[31m";
+    private final String GREEN = "\u001B[32m";
+    private final String YELLOW = "\u001B[33m";
+    private final String BLUE = "\u001B[34m";
+    private final String PURPLE = "\u001B[35m";
+    private final String CYAN = "\u001B[36m";
+    private final String GRAY = "\033[38;5;245m";
     /**
      * Affiche les dés et les chiffres qui sont sortis
      * @param diceHand dés à afficher
