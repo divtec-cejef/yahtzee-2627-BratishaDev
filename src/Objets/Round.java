@@ -2,12 +2,13 @@ package Objets;
 
 public class Round {
     private ConsoleIO consoleIO;
-    private DiceHand diceHand = new DiceHand();
+    private DiceHand diceHand;
     private int rolls = 0;
     private final int ROLLS_LIMIT = 2;
 
-    public Round(ConsoleIO consoleIO) {
+    public Round(ConsoleIO consoleIO, DiceHand diceHand) {
         this.consoleIO = consoleIO;
+        this.diceHand = diceHand;
     }
 
     public void playRound() {
