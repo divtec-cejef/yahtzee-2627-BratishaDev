@@ -77,6 +77,24 @@ public class ConsoleIO {
     }
 
     /**
+     * Demande à l'utilisateur de choisir une des combinaisons disponibles pour prendre le score de cette combinaison
+     * @return choix de combinaison
+     */
+    public Category categoryChoice(List<Category> availableCategories) {
+        Scanner scanner = new Scanner(System.in);
+        Category selectedCategory;
+        boolean valide = false;
+        do {
+            System.out.println("Choisissez le numéro correspondant à l'une des combinaisons disponibles: ");
+            selectedCategory = Category.values()[(Integer.parseInt(scanner.nextLine())) - 1];;
+            if (availableCategories.contains(selectedCategory)){
+                valide = true;
+            }
+        } while (!valide);
+        return selectedCategory;
+    }
+
+    /**
      * Affiche le nombre de lancements
      * @param rolls le nombre de lancements
      */
