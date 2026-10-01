@@ -19,8 +19,13 @@ public class ConsoleIO {
      */
     public void displayDice(int[] diceHand) {
         for (int index = 0; index < diceHand.length; index++) {
-            System.out.println("Des numero " + (index + 1) + ": " + CYAN + diceHand[index] + RESET);
+            System.out.print(GRAY + " " + (index + 1) + "  " + RESET);
         }
+        System.out.println();
+        for (int faceDie : diceHand) {
+            System.out.print(CYAN + "[" + faceDie + "] " + RESET);
+        }
+
         System.out.println();
     }
 
