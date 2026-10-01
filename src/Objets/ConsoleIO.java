@@ -101,7 +101,7 @@ public class ConsoleIO {
      * @param rolls le nombre de lancements
      */
     public void displayNumberRolls(int rolls) {
-        System.out.println(BLUE + "Lancement: " + (rolls + 1) + RESET);
+        System.out.println(BLUE + "Lancement: " + rolls + RESET);
     }
 
     /**

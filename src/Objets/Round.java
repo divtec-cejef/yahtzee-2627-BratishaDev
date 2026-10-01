@@ -3,8 +3,8 @@ package Objets;
 public class Round {
     private ConsoleIO consoleIO;
     private DiceHand diceHand;
-    private int rolls = 0;
     private final int ROLLS_LIMIT = 2;
+
 
     public Round(ConsoleIO consoleIO, DiceHand diceHand) {
         this.consoleIO = consoleIO;
@@ -14,20 +14,21 @@ public class Round {
     public void playRound() {
         // Premier lancement de dés
         diceHand.rollDice();
-        consoleIO.displayNumberRolls(rolls);
-        rolls++;
+        consoleIO.displayNumberRolls(1);
         consoleIO.displayDice(diceHand.getValuesDice());
 
         // Relancement optionnel de dés
-        for (int roll = 0; roll < ROLLS_LIMIT; roll++) {
+        for (int reroll = 0; reroll < ROLLS_LIMIT; reroll++) {
             int[] userChoice = consoleIO.requestReroll();
             if (userChoice.length != 0) {
                 diceHand.reroll(userChoice);
             } else {
                 break;
             }
-            consoleIO.displayNumberRolls(rolls);
+            consoleIO.displayNumberRolls(reroll + 2);
             consoleIO.displayDice(diceHand.getValuesDice());
         }
+
+
     }
 }
