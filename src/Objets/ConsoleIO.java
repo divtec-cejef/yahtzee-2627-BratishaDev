@@ -63,7 +63,7 @@ public class ConsoleIO {
      * @return les indices de dés à relancer
      */
     public int[] requestReroll() {
-        System.out.println(YELLOW + "Indiquez les dés que vous souhaitez relancer (ou enter pour arrêter)" + RESET);
+        System.out.println(YELLOW + "Indiquez les dés que vous souhaitez relancer (ou enter pour arrêter):" + RESET);
         Scanner scanner = new Scanner(System.in);
         String choixUtilisateur = scanner.nextLine();
         String[] ChoixUtilisateur = choixUtilisateur.split(" ");
