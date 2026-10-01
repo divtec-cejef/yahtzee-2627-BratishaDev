@@ -85,7 +85,7 @@ public class ConsoleIO {
         Category selectedCategory;
         boolean valide = false;
         do {
-            System.out.println("Choisissez le numéro correspondant à l'une des combinaisons disponibles: ");
+            System.out.println(YELLOW + "Choisissez le numéro correspondant à l'une des combinaisons disponibles: " + RESET);
             selectedCategory = Category.values()[(Integer.parseInt(scanner.nextLine())) - 1];;
             if (availableCategories.contains(selectedCategory)){
                 valide = true;

@@ -19,7 +19,7 @@ public class Game {
         for (int manche = 0; manche < ROUNDS_LIMIT; manche++) {
             consoleIO.displayNumberRounds(numberRounds);
             round.playRound();
-            consoleIO.displayOccurrences(diceHand.getNombreOccurrences());
+            //consoleIO.displayOccurrences(diceHand.getNombreOccurrences());
             consoleIO.displayScore(diceHand, player.getScorecard());
             selectedCategory = consoleIO.categoryChoice(player.getScorecard().getAvailableCategories());
             player.getScorecard().saveScore(selectedCategory, diceHand);
