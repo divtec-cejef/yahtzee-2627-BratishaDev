@@ -24,6 +24,7 @@ public class Game {
             selectedCategory = consoleIO.categoryChoice(player.getScorecard().getAvailableCategories());
             player.getScorecard().saveScore(selectedCategory, diceHand);
             consoleIO.displayPlayerScore(player.getScorecard().getTotalScore());
+            diceHand.resetFace2Paire();
         }
     }
 }
