@@ -23,7 +23,7 @@ public class Game {
             consoleIO.displayScore(diceHand, player.getScorecard());
             selectedCategory = consoleIO.categoryChoice(player.getScorecard().getAvailableCategories());
             player.getScorecard().saveScore(selectedCategory, diceHand);
-            consoleIO.displayPlayerScore(player.getScorecard().getTotalScore());
+            consoleIO.displayPlayerScore(player.getScorecard().getTotalScore(), numberRounds, ROUNDS_LIMIT);
             diceHand.resetFace2Paire();
         }
     }

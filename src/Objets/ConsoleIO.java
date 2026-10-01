@@ -114,8 +114,13 @@ public class ConsoleIO {
      * Affiche le score d'un joueur
      * @param playerScore le score d'un joueur
      */
-    public void displayPlayerScore(int playerScore) {
-        System.out.println(PURPLE + "Votre score: " + playerScore + "\n" + RESET);
+    public void displayPlayerScore(int playerScore, int round, int roundsLimit) {
+        if (round < roundsLimit - 1){
+            System.out.println(PURPLE + "Votre score: " + playerScore + "\n" + RESET);
+        } else {
+            System.out.println(PURPLE + "Votre score final: " + playerScore + "\n" + RESET);
+        }
+
     }
 
 }
