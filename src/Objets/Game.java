@@ -25,6 +25,7 @@ public class Game {
             player.getScorecard().saveScore(selectedCategory, diceHand);
             consoleIO.displayPlayerScore(player.getScorecard().getTotalScore(), numberRounds, ROUNDS_LIMIT);
             diceHand.resetFace2Paire();
+            numberRounds++;
         }
     }
 }

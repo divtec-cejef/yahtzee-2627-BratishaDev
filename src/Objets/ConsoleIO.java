@@ -45,12 +45,9 @@ public class ConsoleIO {
         String alignementGauche = "%-17s";
         String color;
         for (Category category : Category.values()) {
-            if (scorecard.isAvailable(category)){
-                color = GREEN;
-            } else {
-                color = GRAY;
-            }
-            System.out.printf(alignementGauche, color + (category.ordinal() + 1) + ") " + category.getName() + RESET);
+            color = scorecard.isAvailable(category) ? GREEN : GRAY;
+            String texteFormatte = String.format(alignementGauche, (category.ordinal() + 1) + ") " + category.getName());
+            System.out.printf(alignementGauche, color + texteFormatte + RESET);
             System.out.printf(alignementDroite, category.Score(diceHand));
         }
         System.out.println();
